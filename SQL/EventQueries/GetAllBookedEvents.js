@@ -41,7 +41,8 @@ module.exports.getAllEventsBookedByUser = async(userId) => {
                         event.venue, 
                         event.event_limit,
                         organizer.name,
-                        organizer.logo;`;
+                        organizer.logo,
+                        organizer.id;`;
 
         const bookedEventsData = await pool.query(query, [userId]);
 
