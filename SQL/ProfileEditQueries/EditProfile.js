@@ -10,21 +10,27 @@ module.exports.editProfile = async(table ,attributes, id) => {
     //  Index will be the placeholder parameter for updating the table
     // 2 - Pass the object values in the values array , alongside the user id
     // 3 - For the user id, we pass at at the end of the values array. Hence, to reference it, 
-    //     we go the entire length of the attribute values array and add 1 (since the parameter strings)
+    //     we go the entire length of the attribute values array (since the parameter strings)
     //     start from 1
 
     try {
-        const attributesToUpdate = Object.keys(attributes).map((key, index) => {
+        const attributesToUpdate = Object.keys(attributes).length > 1 ?
+        Object.keys(attributes).map((key, index) => {
             return `${key} = $${index + 1}`;
-        }).join(' ,');
+        }).join(' ,')
+        : 
+        Object.keys(attributes).map((key, index) => {
+            return `${key} = $${index + 1}`;
+        });
 
         const values = [...Object.values(attributes), parseInt(id)];
 
-        const query = `UPDATE ${table}
+        const query = `UPDATE 
+                        ${table}
                        SET 
-                       ${attributesToUpdate}
+                        ${attributesToUpdate}
                        WHERE
-                       id = $${values.length}
+                        id = $${values.length}
                        RETURNING *`;
 
         const response = await pool.query(query, values);
