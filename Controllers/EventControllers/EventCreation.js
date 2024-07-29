@@ -1,14 +1,17 @@
-// const cloudinary = require('cloudinary').v2;
 const { createEvent } = require('../../SQL/EventQueries/CreateEvent');
 const { findByAttribute } = require('../../SQL/AuthQueries/FindExistingEntity');
 const { addEventCategories } = require('../../SQL/EventQueries/AddEventCategories');
+
 const uploadImageToCloudinary = require('../../Util/UploadImage');
+const sendEmail = require('../../Util/Emails/sendEmail');
+const { SuccessfulEventCreationEmail } = require('../../Util/Emails/Message_Templates/SuccessfulEventCreation');
 
 module.exports.EventCreation = async (req, res) => {
     try {
         const { eventDetails, organizerID, eventCategories } = req.body;
 
         const existingOrganizer = await findByAttribute("organizer", "id", organizerID);
+        console.log(existingOrganizer);
 
         if (!existingOrganizer.length) {
             console.log("Organizer not found", organizerID);
@@ -25,6 +28,8 @@ module.exports.EventCreation = async (req, res) => {
 
         const uploadedImageData = await uploadImageToCloudinary(image);
         
+
+        // Include uploaded image url in eventDetails object
         let eventData = JSON.parse(eventDetails);
         eventData.additionalEventDetails.image = uploadedImageData.url;
 
@@ -35,6 +40,8 @@ module.exports.EventCreation = async (req, res) => {
         console.log("Event creation successful", successfulEventCreation);
 
 
+        // Parse eventCategories into a string(for testing via Postman)
+        // First check whether it's an actual array. If not, parse
         if (eventCategories) {
             let parsedEventCategories = eventCategories;
 
@@ -47,6 +54,17 @@ module.exports.EventCreation = async (req, res) => {
 
             console.log(response);
         }
+
+        // Send confirmation email
+        let emailDetails = {
+            sender : "mr.laodicean@gmail.com",
+            receipient : {
+                name : existingOrganizer[0].name,
+                email : "vincechurchillankrah@gmail.com"
+            }
+        };
+
+        sendEmail(SuccessfulEventCreationEmail(emailDetails,eventData));
 
         res.status(200).send({
             message: "Event created successfully",

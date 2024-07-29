@@ -1,13 +1,6 @@
 const transporter = require("../../Config/email");
 
-const sendEmail = (emailDetails) => {
-    const mailOptions = {
-        from : emailDetails.sender,
-        to : emailDetails.receipient,
-        subject : emailDetails.subject,
-        text : emailDetails.text
-    };
-
+const sendEmail = (emailType) => {
     transporter.verify(function (error, success) {
         if (error) {
           console.log(error);
@@ -16,7 +9,7 @@ const sendEmail = (emailDetails) => {
         }
       });
 
-    transporter.sendMail(mailOptions, function(error, info) {
+    transporter.sendMail(emailType, function(error, info) {
         if(error) {
             console.log(error);
         } else {

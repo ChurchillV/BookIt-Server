@@ -1,7 +1,7 @@
 const { findByAttribute } = require('../../SQL/AuthQueries/FindExistingEntity');
 const { createUser } = require('../../SQL/AuthQueries/CreateUser');
 const { generateToken }  = require('../../Util/Auth');
-const { genericEmail } = require('../../Util/Emails/Message_Templates/sample');
+// const { genericEmail } = require('../../Util/Emails/Message_Templates/sample');
 const sendEmail = require('../../Util/Emails/sendEmail');
 
 module.exports.AttendeeSignUp = async(req, res) => {
@@ -28,14 +28,14 @@ module.exports.AttendeeSignUp = async(req, res) => {
     
         const token = generateToken(user.id);
 
-        const sampleEmail = {
-            sender : 'hello@bookit.com',
-            receipient : 'vincechurchillankrah@gmail.com',
-            subject : 'Successful sign up',
-            text : genericEmail
-        }
+        // const sampleEmail = {
+        //     sender : 'hello@bookit.com',
+        //     receipient : 'vincechurchillankrah@gmail.com',
+        //     subject : 'Successful sign up',
+        //     text : genericEmail
+        // }
 
-        sendEmail(sampleEmail);
+        // sendEmail(sampleEmail);
         
         res.json({
             message : 'User created successfully',
