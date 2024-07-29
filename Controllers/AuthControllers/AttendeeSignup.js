@@ -32,8 +32,8 @@ module.exports.AttendeeSignUp = async(req, res) => {
         const emailDetails = {
             sender : 'hello@bookit.com',
             receipient : {
-                email : 'vincechurchillankrah@gmail.com',
-                first_name : newUser.first_name
+                email : email,
+                first_name : first_name
             }
         }
 
