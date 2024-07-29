@@ -3,6 +3,6 @@ module.exports.SuccessfulSignUpEmail = (emailDetails) => {
         from : emailDetails.sender,
         to : emailDetails.receipient.email,
         subject : "Successful SignUp",
-        text : `Hello ${emailDetails.receipient.firstname}. Welcome to BookIt!`
+        text : `Hello ${emailDetails.receipient.first_name}. Welcome to BookIt!`
     }
 }
