@@ -2,11 +2,11 @@ module.exports.SuccessfulEventRegistration = (emailDetails, eventDetails) => {
     return {
         from : emailDetails.sender,
         to : emailDetails.receipient.email,
-        subject : "Successful SignUp",
+        subject : "Event Booked Successfully",
         text : `Hello ${emailDetails.receipient.firstname}. You have sucessfully
-                been added to the waitlist for the ${eventDetails.coreEventDetails.title} event
-                happening on ${eventDetails.coreEventDetails.event_timestamp} at 
-                ${eventDetails.coreEventDetails.venue}. Contact the organizers via email at
-                ${eventDetails.organizer.email} or call/text on ${eventDetails.organizer.contact}`
+                been added to the waitlist for the ${eventDetails.title} event
+                happening on ${eventDetails.event_timestamp} at 
+                ${eventDetails.venue}. Contact the organizers via email at
+                ${emailDetails.organizer.email} or call/text on ${emailDetails.organizer.contact}`
     }
 }
