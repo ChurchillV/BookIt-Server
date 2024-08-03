@@ -19,11 +19,9 @@ app.use(cors());
 app.use(bodyparser.json())
 app.use(
     bodyparser.urlencoded({
-        extended : true,
+        extended : false,
     })
 )
-
-bodyparser.json([options]);
 
 app.use('/', homeRoute);
 app.use('/auth', authRoutes);
