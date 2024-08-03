@@ -23,6 +23,8 @@ app.use(
     })
 )
 
+bodyparser.json([options]);
+
 app.use('/', homeRoute);
 app.use('/auth', authRoutes);
 app.use('/profile', editRoutes);
