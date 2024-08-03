@@ -8,7 +8,7 @@ const { SuccessfulEventCreationEmail } = require('../../Util/Emails/Message_Temp
 
 module.exports.EventCreation = async (req, res) => {
     try {
-        const { eventDetails, organizerID, eventCategories } = req.body;
+        let { eventDetails, organizerID, eventCategories } = req.body;
 
         console.log(organizerID);
         const existingOrganizer = await findByAttribute("organizer", "id", organizerID);
