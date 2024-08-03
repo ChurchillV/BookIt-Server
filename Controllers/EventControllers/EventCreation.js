@@ -28,9 +28,14 @@ module.exports.EventCreation = async (req, res) => {
 
         const uploadedImageData = await uploadImageToCloudinary(image);
         
+        // Parse eventData into object if it isn't already
+        let eventData;
 
         // Include uploaded image url in eventDetails object
-        let eventData = JSON.parse(eventDetails);
+        if(!(typeof eventDetails === 'object')) {
+            eventData = JSON.parse(eventDetails);
+        }
+
         eventData.additionalEventDetails.image = uploadedImageData.url;
 
         console.log("Event data: ", eventData);
