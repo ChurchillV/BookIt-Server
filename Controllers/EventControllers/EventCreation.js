@@ -8,7 +8,7 @@ const { SuccessfulEventCreationEmail } = require('../../Util/Emails/Message_Temp
 
 module.exports.EventCreation = async (req, res) => {
     try {
-        let { eventDetails, organizerID, eventCategories } = req.body;
+        const { eventDetails, organizerID, eventCategories } = req.body;
 
         const existingOrganizer = await findByAttribute("organizer", "id", organizerID);
         console.log(existingOrganizer);
@@ -27,9 +27,6 @@ module.exports.EventCreation = async (req, res) => {
         }
 
         const uploadedImageData = await uploadImageToCloudinary(image);
-        
-        // Parse eventData into object if it isn't already
-        let eventData;
 
         // Include uploaded image url in eventDetails object
         if(!(typeof eventDetails === 'object')) {
@@ -38,7 +35,7 @@ module.exports.EventCreation = async (req, res) => {
         
         eventDetails.additionalEventDetails.image = uploadedImageData.url;
 
-        console.log("Event data: ", eventData);
+        console.log("Event data: ", eventDetails);
 
         const successfulEventCreation = await createEvent(eventDetails, organizerID);
 
