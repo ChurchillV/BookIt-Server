@@ -19,8 +19,6 @@ module.exports.EventRegistration = async(req, res) => {
 
         const existingEvent = await findByAttribute('event', 'id', eventID);
 
-        console.log(existingEvent);
-
         if(!existingEvent.length) {
             console.log("Error: No event found");
             res.send({ message : "No event found"});
@@ -32,13 +30,12 @@ module.exports.EventRegistration = async(req, res) => {
 
         if(existingBooking.length) {
             console.log("User has already booked this event", existingBooking);
-            res.send({ message : "Seems you've already booked this event"});
+            res.send({ message : "Seems you've already booked this event" });
             return;
         }
 
         
         const successfulEventRegistration = await registerForEvent(userID, eventID);
-
         
         console.log("Successful event registration: ", successfulEventRegistration);
         
@@ -51,6 +48,7 @@ module.exports.EventRegistration = async(req, res) => {
             },
             organizer : organizer[0]
         }
+        
         
         sendEmail(SuccessfulEventRegistration(emailDetails, existingEvent[0]))
 
