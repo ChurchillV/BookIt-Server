@@ -7,11 +7,11 @@ module.exports.findExistingEventReview = async(guestID, eventID) => {
                     FROM 
                         review
                     WHERE 
-                        guest_id = $1 AND event_id = $2`;
+                        guest_id = $1 AND event_id = $2;`;
     
         const values = [guestID, eventID];
     
-        const response = pool.query(query, values);
+        const response = await pool.query(query, values);
     
         console.log("SQL response: ", response.rows);
     
