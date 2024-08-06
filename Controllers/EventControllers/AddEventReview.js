@@ -19,7 +19,7 @@ module.exports.AddEventReview = async(req, res) => {
         if(!existingReview) {
             console.log(existingReview);
             console.log("You have already reviewed this event", guestID);
-            res.send({ message : "You can only review an event once"});
+            res.send({ message : "You can only review an event once" });
             return;
         }
 

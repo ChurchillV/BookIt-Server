@@ -2,6 +2,7 @@ const router = require('express').Router();
 const upload = require('../Config/multer-config');
 
 const { GetEventAttendanceList } = require('../Controllers/AttendenceController/GetEventAttendanceList');
+const { AddEventReview } = require('../Controllers/EventControllers/AddEventReview');
 const { CancelBooking } = require('../Controllers/EventControllers/CancelBooking');
 const { EventCreation } = require('../Controllers/EventControllers/EventCreation');
 const { EventDetailsEdit } = require('../Controllers/EventControllers/EventDetailEditing');
@@ -13,6 +14,7 @@ const { GetEventById } = require('../Controllers/EventControllers/GetEventById')
 
 router.post('/create', upload.single('image'), EventCreation);
 router.post('/register', EventRegistration);
+router.post('/review', AddEventReview);
 router.put('/update', EventDetailsEdit);
 router.get('/:id', GetEventById);
 router.get('/', GetAllEvents);
