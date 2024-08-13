@@ -15,13 +15,13 @@ const userRoutes = require('./Routes/UserRoutes');
 const organizerRoutes = require('./Routes/OrganizerRoutes');
 
 // Set up Cross-Origin resource sharing & body parser
-app.use(cors());
 app.use(bodyparser.json())
 app.use(
     bodyparser.urlencoded({
         extended : true,
     })
 )
+app.use(cors());
 
 app.use('/', homeRoute);
 app.use('/auth', authRoutes);
