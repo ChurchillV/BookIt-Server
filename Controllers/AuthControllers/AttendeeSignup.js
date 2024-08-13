@@ -8,6 +8,8 @@ module.exports.AttendeeSignUp = async(req, res) => {
     try{
         const { first_name, last_name, email, password } = req.body;
 
+        console.log("Request body: ", req.body);
+
         const existingUser = await findByAttribute("guest", "email", email);
         
         if(existingUser.length) {
