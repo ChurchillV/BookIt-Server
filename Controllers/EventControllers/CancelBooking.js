@@ -6,9 +6,9 @@ const { getExistingBooking } = require("../../SQL/EventQueries/GetExistingBookin
 module.exports.CancelBooking = async(req, res) => {
     try {
 
-        console.log("Request Body: ", req.body);
-        
-        const { guestID, eventID } = req.body;
+        console.log("Request Body: ", req.params);
+
+        const { guestID, eventID } = req.params;
 
         const existingGuest = await findByAttribute('guest', 'id', guestID);
 
