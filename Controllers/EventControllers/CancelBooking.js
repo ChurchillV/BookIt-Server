@@ -8,7 +8,8 @@ module.exports.CancelBooking = async(req, res) => {
 
         console.log("Request Body: ", req.params);
 
-        const { guestID, eventID } = req.params;
+        const guestID  = req.params.guestID;
+        const eventID  = req.params.eventID;
 
         const existingGuest = await findByAttribute('guest', 'id', guestID);
 

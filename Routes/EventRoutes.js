@@ -21,6 +21,6 @@ router.get('/', GetAllEvents);
 router.get('/bookings/:userId', GetAllEventsBookedByUser);
 router.get('/:eventId/bookings', GetEventBookingList);
 router.get('/:eventId/attendance', GetEventAttendanceList);
-router.delete('/bookings/delete', CancelBooking);
+router.delete('/bookings/delete/:guestID/:eventID', CancelBooking);
 
 module.exports = router;
