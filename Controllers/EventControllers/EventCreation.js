@@ -10,8 +10,8 @@ module.exports.EventCreation = async (req, res) => {
     try {
         let { eventDetails, organizerID, eventCategories } = req.body;
 
-        console.log(req.body);
-        console.log(organizerID);
+        console.log("Request body:", req.body);
+        console.log("Organizer ID:", organizerID);
         const existingOrganizer = await findByAttribute("organizer", "id", organizerID);
         console.log(existingOrganizer);
 
