@@ -1,5 +1,6 @@
 const { findByAttribute } = require('../../SQL/AuthQueries/FindExistingEntity');
 const { addAttendance }   = require('../../SQL/AttendanceQueries/AddAttendance');
+const { getExistingBooking } = require('../../SQL/EventQueries/GetExistingBooking');
 
 module.exports.AddAttendance = async (req, res) =>{
     try {
@@ -20,6 +21,14 @@ module.exports.AddAttendance = async (req, res) =>{
             res.send({ message : "No event found"});
             return;
         }
+
+        const existingBooking = await getExistingBooking(guestID, eventID);
+
+        if(!existingBooking.length) {
+            console.log("User has not booked this event");
+            res.send({ message : "Booking not found" });
+        }
+
         const successfullyAddedAttendance = await addAttendance(userID, eventID);
 
         console.log("Successfully added attendee ", successfullyAddedAttendance);
