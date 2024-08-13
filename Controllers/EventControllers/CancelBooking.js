@@ -11,7 +11,7 @@ module.exports.CancelBooking = async(req, res) => {
 
         if(!existingGuest.length) {
             console.log("Guest not found. ID :", guestID);
-            res.send({ message : "Guest not found" });
+            res.send({ message : "Guest not found. ID :", guestID });
             return;
         }
 
