@@ -1,5 +1,6 @@
 const { findByAttribute } = require("../../SQL/AuthQueries/FindExistingEntity");
 const { getEventAttendanceList } = require("../../SQL/EventQueries/GetEventAttendanceList");
+const { getEventAttendanceRate } = require("../../SQL/EventQueries/GetEventAttendanceRate");
 
 module.exports.GetEventAttendanceList = async(req, res) => {
     try {
@@ -14,13 +15,15 @@ module.exports.GetEventAttendanceList = async(req, res) => {
         }
 
         const attendanceList = await getEventAttendanceList(eventId);
+        const attendanceRate = await getEventAttendanceRate(eventId);
 
         console.log("attendance List: ", attendanceList);
 
         res.status(200)
            .send({
                 message : "Attendance list returned successfully",
-                attendanceList : attendanceList
+                attendanceList : attendanceList,
+                attendanceRate : attendanceRate
         });
         
     } catch (error) {
