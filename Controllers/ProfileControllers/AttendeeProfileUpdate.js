@@ -8,7 +8,7 @@ module.exports.AttendeeProfileUpdate = async(req, res) => {
 
         if(!existingUser.length) {
             console.log(id, existingUser);
-            res.send({ message : "No user found"});
+            res.send({ message : "No user found. ID : ", id});
             return;
         }
 
