@@ -10,7 +10,7 @@ module.exports.CancelBooking = async(req, res) => {
         const existingGuest = await findByAttribute('guest', 'id', guestID);
 
         if(!existingGuest.length) {
-            console.log("Guest not found");
+            console.log("Guest not found. ID :", guestID);
             res.send({ message : "Guest not found" });
             return;
         }
