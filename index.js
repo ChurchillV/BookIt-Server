@@ -1,5 +1,5 @@
 const express = require('express');
-// const bodyparser = require('body-parser');
+const bodyparser = require('body-parser');
 const cors = require('cors');
 require('dotenv').config();
 
@@ -16,9 +16,9 @@ const organizerRoutes = require('./Routes/OrganizerRoutes');
 
 // Set up Cross-Origin resource sharing & body parser
 app.use(cors());
-app.use(express.json())
+app.use(bodyparser.json())
 app.use(
-    express.urlencoded({
+    bodyparser.urlencoded({
         extended : true,
     })
 )
