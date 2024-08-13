@@ -6,6 +6,7 @@ module.exports.getUserProfile = async(userId) => {
                         guest.email,
                         guest.first_name,
                         guest.last_name,
+                        guest.password,
                         ARRAY_AGG(interest.interest) AS interests
                     FROM 
                         guest
@@ -17,7 +18,8 @@ module.exports.getUserProfile = async(userId) => {
                         guest.id = $1
                     GROUP BY
                         guest.email,
-                        guest,first_name,
+                        guest.first_name,
+                        guest.password,
                         guest.last_name;`;
 
         const userProfile = await pool.query(query, [userId]);
