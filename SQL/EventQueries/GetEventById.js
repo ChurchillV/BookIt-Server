@@ -12,7 +12,10 @@ module.exports.getEventById = async(eventID) => {
                         event.event_limit, 
                         organizer.id AS org_id,
                         organizer.name AS organizer_name, 
-                        organizer.logo AS organizer_logo
+                        organizer.logo AS organizer_logo,
+                        organizer.contact AS organizer_contact,
+                        organizer.email AS organizer_email,
+                        organizer.website AS organizer_website
                     FROM 
                         event 
                     FULL JOIN 
