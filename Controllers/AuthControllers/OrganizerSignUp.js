@@ -1,6 +1,8 @@
 const { findByAttribute } = require('../../SQL/AuthQueries/FindExistingEntity');
 const { createOrganizer } = require('../../SQL/AuthQueries/CreateOrganizer');
 const { generateToken }  = require('../../Util/Auth');
+const sendEmail = require('../../Util/Emails/sendEmail');
+const { SuccessfulSignUpEmail } = require('../../Util/Emails/Message_Templates/SuccessfulSignUp');
 
 module.exports.OrganizerSignUp = async(req, res) => {
     try {
