@@ -3,7 +3,8 @@ const { addUserInterests } = require("../../SQL/ProfileEditQueries/AddUserIntere
 
 module.exports.AttendeeInterestUpdate = async(req, res) => {
     try {
-        const { interests, id } = req.body;
+        const { interests } = req.body;
+        const id = req.params.userID;
         
         const existingUser = await findByAttribute('guest', 'id', id);
 

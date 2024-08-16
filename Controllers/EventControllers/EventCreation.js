@@ -22,20 +22,20 @@ module.exports.EventCreation = async (req, res) => {
         }
 
         // Handle image uploading
-        const image = req.file;
-        if (!image) {
-            res.status(400).send({ message: 'Image file is required' });
-            return;
-        }
+        // const image = req.file;
+        // if (!image) {
+        //     res.status(400).send({ message: 'Image file is required' });
+        //     return;
+        // }
 
-        const uploadedImageData = await uploadImageToCloudinary(image);
+        // const uploadedImageData = await uploadImageToCloudinary(image);
 
-        // Include uploaded image url in eventDetails object
-        if(!(typeof eventDetails === 'object')) {
-            eventDetails = JSON.parse(eventDetails);
-        }
+        // // Include uploaded image url in eventDetails object
+        // if(!(typeof eventDetails === 'object')) {
+        //     eventDetails = JSON.parse(eventDetails);
+        // }
         
-        eventDetails.additionalEventDetails.image = uploadedImageData.url;
+        // eventDetails.additionalEventDetails.image = uploadedImageData.url;
 
         console.log("Event data: ", eventDetails);
 

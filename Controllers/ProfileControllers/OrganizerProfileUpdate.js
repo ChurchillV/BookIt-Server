@@ -3,7 +3,8 @@ const { editProfile } = require('../../SQL/ProfileEditQueries/EditProfile');
 
 module.exports.OrganizerProfileUpdate = async(req, res) => {
     try {
-        const { attributes, id } = req.body;
+        const { attributes } = req.body;
+        const id = req.params.orgID;
         const existingOrganizer = await findByAttribute('organizer', 'id', id);
 
         if(!existingOrganizer.length) {

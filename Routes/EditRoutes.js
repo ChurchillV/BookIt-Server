@@ -4,8 +4,8 @@ const { AttendeeInterestUpdate } = require('../Controllers/ProfileControllers/At
 const { AttendeeProfileUpdate } = require('../Controllers/ProfileControllers/AttendeeProfileUpdate');
 const { OrganizerProfileUpdate } = require('../Controllers/ProfileControllers/OrganizerProfileUpdate');
 
-router.put('/user/update', AttendeeProfileUpdate);
-router.put('/org/update', OrganizerProfileUpdate);
-router.post('/user/interests', AttendeeInterestUpdate);
+router.put('/user/:userID/update', AttendeeProfileUpdate);
+router.put('/org/:orgID/update', OrganizerProfileUpdate);
+router.post('/user/:userID/interests', AttendeeInterestUpdate);
 
 module.exports = router;
