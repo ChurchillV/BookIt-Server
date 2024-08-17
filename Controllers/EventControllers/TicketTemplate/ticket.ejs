@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        .ticket {
+            border: 2px dashed #FFC107;
+            padding: 20px;
+            max-width: 500px;
+            margin: auto;
+            text-align: left;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+        .ticket h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #FFC107;
+        }
+        .ticket p {
+            margin: 5px 0;
+            font-size: 18px;
+        }
+        .bookit-logo {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="ticket">
+        <div class="attendee-details">
+            <h1>Event Ticket</h1>
+            <p><strong>Name:</strong> <%= first_name %> <%= last_name%></p>
+            <p><strong>Event:</strong> <%= event_name %></p>
+            <p><strong>Booking ID:</strong> <%= booking_id %></p>
+        </div>
+        <div class="bookit-logo">
+            <img src="file://<%= image_URL %>" alt="bookit-logo" width="150px" height="100px">
+        </div>
+        <p>Thank you for booking with us!</p>
+    </div>
+</body>
+</html>
