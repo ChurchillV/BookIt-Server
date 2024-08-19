@@ -1,5 +1,5 @@
 const ejs = require('ejs');
-const pdf = require('html-pdf');
+const puppeteer = require('puppeteer');
 const path = require('path');
 
 const { registerForEvent } = require('../../SQL/EventQueries/RegisterForEvent');
@@ -36,6 +36,7 @@ module.exports.EventRegistration = async (req, res) => {
         const successfulEventRegistration = await registerForEvent(userID, eventID);
         console.log("Successful event registration: ", successfulEventRegistration);
 
+        // Render the EJS template to HTML string
         const ticketDetails = await ejs.renderFile(path.join(__dirname, '/TicketTemplate/ticket.ejs'), {
             first_name: existingUser[0].first_name,
             last_name: existingUser[0].last_name,
@@ -44,44 +45,45 @@ module.exports.EventRegistration = async (req, res) => {
             image_URL : path.join(__dirname, 'assets', 'IMG-20240807-WA0026.jpg')
         });
 
-        const options = { 
-            format: 'A6', 
-            orientation : 'landscape',
-            childProcessOptions: {
-                env: {
-                OPENSSL_CONF: '/dev/null',
-                },
-        }};
+        // Use Puppeteer to generate PDF
+        const browser = await puppeteer.launch();
+        const page = await browser.newPage();
 
-        pdf.create(ticketDetails, options).toBuffer(async (err, buffer) => {
-            if (err) {
-                console.error("PDF generation error: ", err);
-                res.status(500).send({ message: 'Error generating ticket PDF' });
-                return;
+        // Set the content of the page as the generated HTML
+        await page.setContent(ticketDetails, {
+            waitUntil: 'domcontentloaded'
+        });
+
+        // Generate the PDF
+        const buffer = await page.pdf({
+            format: 'A6',
+            landscape: true, // Set orientation to landscape
+            printBackground: true // Ensures that background images are printed
+        });
+
+        await browser.close();
+
+        const organizer = await findByAttribute('organizer', 'id', existingEvent[0].org_id);
+
+        let emailDetails = {
+            sender: 'hello@bookit.org',
+            receipient: {
+                firstname: existingUser[0].first_name,
+                email: existingUser[0].email
+            },
+            organizer: organizer[0],
+            ticket: {
+                filename: 'ticket.pdf',
+                content: buffer,
+                contentType: 'application/pdf'
             }
+        }
 
-            const organizer = await findByAttribute('organizer', 'id', existingEvent[0].org_id);
+        sendEmail(SuccessfulEventRegistration(emailDetails, existingEvent[0]));
 
-            let emailDetails = {
-                sender: 'hello@bookit.org',
-                receipient: {
-                    firstname: existingUser[0].first_name,
-                    email: existingUser[0].email
-                },
-                organizer: organizer[0],
-                ticket: {
-                    filename: 'ticket.pdf',
-                    content: buffer,
-                    contentType: 'application/pdf'
-                }
-            }
-
-            await sendEmail(SuccessfulEventRegistration(emailDetails, existingEvent[0]));
-
-            res.status(200).send({
-                message: 'Event registration successful',
-                registrationRecord: successfulEventRegistration
-            });
+        res.status(200).send({
+            message: 'Event registration successful',
+            registrationRecord: successfulEventRegistration
         });
 
     } catch (error) {
