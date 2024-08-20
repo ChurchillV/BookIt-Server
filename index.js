@@ -21,7 +21,9 @@ app.use(
         extended : true,
     })
 )
-app.use(cors());
+app.use(cors({
+    origin : "*",
+}));
 
 app.use('/', homeRoute);
 app.use('/auth', authRoutes);
