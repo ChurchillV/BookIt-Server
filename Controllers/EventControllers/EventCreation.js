@@ -2,7 +2,7 @@ const { createEvent } = require('../../SQL/EventQueries/CreateEvent');
 const { findByAttribute } = require('../../SQL/AuthQueries/FindExistingEntity');
 const { addEventCategories } = require('../../SQL/EventQueries/AddEventCategories');
 
-const uploadImageToCloudinary = require('../../Util/UploadImage');
+// const uploadImageToCloudinary = require('../../Util/UploadImage');
 const sendEmail = require('../../Util/Emails/sendEmail');
 const { SuccessfulEventCreationEmail } = require('../../Util/Emails/Message_Templates/SuccessfulEventCreation');
 
