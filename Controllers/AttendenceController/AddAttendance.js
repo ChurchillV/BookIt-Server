@@ -4,7 +4,8 @@ const { getExistingBooking } = require('../../SQL/EventQueries/GetExistingBookin
 
 module.exports.AddAttendance = async (req, res) =>{
     try {
-        const {userID, eventID} = req.body;
+        const userID  = req.params.guestID;
+        const eventID  = req.params.eventID;
 
         const existingUser = await findByAttribute('guest', 'id', userID);
 
