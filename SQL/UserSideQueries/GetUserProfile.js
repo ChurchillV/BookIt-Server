@@ -21,6 +21,7 @@ module.exports.getUserProfile = async(userId) => {
                         guest.email,
                         guest.first_name,
                         guest.password,
+                        guest.image,
                         guest.last_name;`;
 
         const userProfile = await pool.query(query, [userId]);
