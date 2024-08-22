@@ -35,5 +35,5 @@ app.use('/org', organizerRoutes);
 
 
 app.listen(3000, ()=> {
-    console.log("BookIt! is up and running!");
+    console.log("BookIt! is up and running! Port:3000");
 });

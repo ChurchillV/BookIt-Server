@@ -1,3 +1,4 @@
+const fs = require('fs');
 const ejs = require('ejs');
 const puppeteer = require('puppeteer');
 const path = require('path');
@@ -36,13 +37,18 @@ module.exports.EventRegistration = async (req, res) => {
         const successfulEventRegistration = await registerForEvent(userID, eventID);
         console.log("Successful event registration: ", successfulEventRegistration);
 
+        // Load image and convert to base64
+        const logoImagePath = path.join(__dirname, 'TicketTemplate/assets', 'logo.png');
+        const logoImageBase64 = fs.readFileSync(logoImagePath).toString('base64');
+        const logoImageSrc = `data:image/png;base64,${logoImageBase64}`;
+
         // Render the EJS template to HTML string
         const ticketDetails = await ejs.renderFile(path.join(__dirname, '/TicketTemplate/ticket.ejs'), {
             first_name: existingUser[0].first_name,
             last_name: existingUser[0].last_name,
             event_name: existingEvent[0].title,
             booking_id: successfulEventRegistration.id,
-            image_URL : path.join(__dirname, 'assets', 'IMG-20240807-WA0026.jpg')
+            image_URL: logoImageSrc
         });
 
         // Use Puppeteer to generate PDF
@@ -57,7 +63,7 @@ module.exports.EventRegistration = async (req, res) => {
         // Generate the PDF
         const buffer = await page.pdf({
             format: 'A6',
-            landscape: true, // Set orientation to landscape
+            landscape: false, // Set orientation to landscape
             printBackground: true // Ensures that background images are printed
         });
 

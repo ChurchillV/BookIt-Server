@@ -7,6 +7,7 @@ module.exports.getUserProfile = async(userId) => {
                         guest.first_name,
                         guest.last_name,
                         guest.password,
+                        guest.image,
                         ARRAY_AGG(interest.interest) AS interests
                     FROM 
                         guest
