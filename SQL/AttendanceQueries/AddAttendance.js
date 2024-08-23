@@ -1,10 +1,10 @@
-const { pool } = require('../../Config/db');
+const pool  = require('../../Config/db');
 
 module.exports.addAttendance = async(userID, eventID) => {
    try {
-    const query = `INSERT INTO attendance (guest_id, event_id)
-                   VALUES ($1, $2)
-                   RETURNING *`;
+    let query = `INSERT INTO attendance (guest_id, event_id)
+                  VALUES ($1, $2)
+                  RETURNING *;`;
 
     const values = [userID, eventID];
 
@@ -12,9 +12,10 @@ module.exports.addAttendance = async(userID, eventID) => {
 
     console.log("Response: ", response.rows);
 
-    return response.rows[0];
+    return response.rows;
     
    } catch (error) {
-    console.error(error)
+    console.error(error);
+    throw error;
    }
 }

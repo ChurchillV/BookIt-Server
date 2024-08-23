@@ -23,11 +23,12 @@ module.exports.AddAttendance = async (req, res) =>{
             return;
         }
 
-        const existingBooking = await getExistingBooking(guestID, eventID);
+        const existingBooking = await getExistingBooking(userID, eventID);
 
         if(!existingBooking.length) {
             console.log("User has not booked this event");
             res.send({ message : "Booking not found" });
+            return;
         }
 
         const successfullyAddedAttendance = await addAttendance(userID, eventID);
