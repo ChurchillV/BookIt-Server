@@ -14,6 +14,7 @@ module.exports.editProfile = async(table ,attributes, id) => {
     //     start from 1
 
     try {
+        console.log("Attributes: ", attributes);
         const attributesToUpdate = Object.keys(attributes).length > 1 ?
         Object.keys(attributes).map((key, index) => {
             return `${key} = $${index + 1}`;
