@@ -1,6 +1,6 @@
 const pool = require('../../Config/db');
 
-module.exports.editProfile = async(table ,attributes, id) => {
+module.exports.editProfile = async(table, attributes, id) => {
     // Logic: 
     // `attributes` contains a key-value pairing of all the attributes we're going to update
     // We want to insert all these values dynamically into the query
